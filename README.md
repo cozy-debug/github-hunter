@@ -2,6 +2,9 @@
 
 下面这个仓库是我在 北京时间 2024.11.16 凌晨 4.22 发现的，距离它首次公开仅 17小时。发现它的时候只有 200 多个 star，而今天它已经有 1.4k star
 
+![image](https://github.com/user-attachments/assets/33187bbc-f6af-460d-9433-75ea07d89595)
+
+
 [magic-quill/MagicQuill: Official Implementations for Paper - MagicQuill: An Intelligent Interactive Image Editing System](https://github.com/magic-quill/MagicQuill)
 
 通常我们要分析找到当天最火热的 Github 项目，都是通过看 Github Trending。但是 Github Trending 只展示十几条记录，而且上了 Trending 的仓库，一般都已经积累了很多赞，对我们来说构不成信息差。
