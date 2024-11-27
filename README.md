@@ -7,9 +7,9 @@
 
 [magic-quill/MagicQuill: Official Implementations for Paper - MagicQuill: An Intelligent Interactive Image Editing System](https://github.com/magic-quill/MagicQuill)
 
-通常我们要分析找到当天最火热的 Github 项目，都是通过看 Github Trending。但是 Github Trending 只展示十几条记录，而且上了 Trending 的仓库，一般都已经积累了很多赞，对我们来说构不成信息差。
+通常我们要分析找到当天最火热的 Github 项目，都是通过看 Github Trending 或者看科技新闻。但是 Github Trending 只展示十几条记录，而且上了 Trending 的仓库，一般都已经积累了很多赞，对我们来说构不成信息差。科技新闻更糟糕，当你看到的时候，已经是二手消息，而且零星杂散​不成体系，根本无从得知是不是有些宝藏项目被遗漏了。
 
-我的办法可以遍历一遍所有的 Github 仓库，火热程度从高到低排序，可以不重不漏、任意个数地找到最近几天的火热项目。
+若要系统性地统计所有 Github 项目，最佳办法直连 Github 数据库，遍历一遍，火热程度从高到低排序，可以不重不漏、任意个数地找到最近几天的火热项目。
 
 首先开通一个 Google BigQuery 账号，在控制台中执行
 
