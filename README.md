@@ -43,9 +43,13 @@ GROUP BY
 ORDER BY 
   star_count DESC;
 ```
-就能把所有 Github 仓库，按照最近两天获得的 stars 数量排序了。可以保证不会漏掉任何一个仓库。任何一个媒体人，如果你们的行当就是搬运每日最新的 Github AI 项目，把它们的 demo 做点简介拼在一起，就成为今天的稿件的话，你最好使用这个方法。人人都报道的项目那就烂大街了，只有这种方法可以找到公布时间不长，但 star 增长非常快的种子项目。
+就能把所有 Github 仓库，按照最近两天获得的 stars 数量排序了。可以保证不会漏掉任何一个仓库（10w+数据）。
+![image](https://github.com/user-attachments/assets/7ef87f69-3336-46a7-b7e0-49fbdc485334)
 
-详情放在 Github 仓库 chmod777john/github-hunter
+
+任何一个媒体人，如果你们的行当就是搬运每日最新的 Github AI 项目，把它们的 demo 做点简介拼在一起，就成为今天的稿件的话，你最好使用这个方法。人人都报道的项目那就烂大街了，只有这种方法可以找到公布时间不长，但 star 增长非常快的种子项目。
+
+详情放在 Github 仓库 https://github.com/chmod777john/github-hunter/
 希望未来能做成一款产品，集成 Github + ProductHunt + HackerNews ，通过数据分析找出有潜力的项目。在 AI 产品迅速发展的今天，做一个聚合站把最新的 IT 资讯带给大家，应该还是值得一做的。
 
 同时欢迎各位 AI 相关的媒体人、程序员进群讨论，多多提意见。目前其实是想做成量子位、机器之心那种资讯类的媒体，但是技术性更强，不再人工写稿，而是接入 Github + ProductHunt + HackerNews 数据源来发掘。
