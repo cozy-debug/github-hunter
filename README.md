@@ -1,62 +1,33 @@
-我通过大数据分析，找到了一个潜在的种子项目。我的时效性绝对优于 99% 的科技媒体，（手动喊话量子位+机器之心+新智元+HelloGithub）。我建议这方面的从业者都来看看这篇文章。
+# Github 热门项目预测器
 
-下面这个仓库是我在 北京时间 2024.11.16 凌晨 4.22 发现的，距离它首次公开仅 17小时。发现它的时候只有 200 多个 star，而今天它已经有 1.4k star
+## 概览
+我通过大数据分析，找到了一个潜在的种子项目 [magic-quill/MagicQuill: Official Implementations for Paper - MagicQuill: An Intelligent Interactive Image Editing System](https://github.com/magic-quill/MagicQuill)
+
+下面这个仓库是我在 北京时间 2024.11.16 凌晨 4.22 发现的，距离它首次公开仅 17小时。发现它的时候只有 200 多个 star，而今天它已经有 2k star
 
 ![image](https://github.com/user-attachments/assets/33187bbc-f6af-460d-9433-75ea07d89595)
 
-
-[magic-quill/MagicQuill: Official Implementations for Paper - MagicQuill: An Intelligent Interactive Image Editing System](https://github.com/magic-quill/MagicQuill)
+这个工具就是用来帮你寻找当天那些冷门但又非常有潜力爆火的项目。甚至能在优质项目公布当天 24 小时内就把它挖掘出来。
 
 通常我们要分析找到当天最火热的 Github 项目，都是通过看 Github Trending 或者看科技新闻。但是 Github Trending 只展示十几条记录，而且上了 Trending 的仓库，一般都已经积累了很多赞，对我们来说构不成信息差。科技新闻更糟糕，当你看到的时候，已经是二手消息，而且零星杂散​不成体系，根本无从得知是不是有些宝藏项目被遗漏了。
 
-若要系统性地统计所有 Github 项目，最佳办法直连 Github 数据库，遍历一遍，火热程度从高到低排序，可以不重不漏、任意个数地找到最近几天的火热项目。
+若要系统性地统计所有 Github 项目，最佳办法直连 Github 数据库，遍历一遍，火热程度从高到低排序，可以不重不漏、任意个数地找到最近几天的火热项目。这就是本项目的基本原理。
 
-首先开通一个 Google BigQuery 账号，在控制台中执行
+## 使用方法
+具体代码运行，请看 `index.ipynb`
 
-```sql
--- 提取最近两天的 WatchEvent 事件信息
-WITH watch_data AS (
-  SELECT 
-    repo.name AS repo_name
-  FROM 
-    `githubarchive.day.20241107`  -- 这里替换为具体日期，例如2024年11月6日
-  WHERE 
-    type = 'WatchEvent'
-  
-  UNION ALL
-  
-  SELECT 
-    repo.name AS repo_name
-  FROM 
-    `githubarchive.day.20241106`  -- 这里替换为具体日期，例如2024年11月5日
-  WHERE 
-    type = 'WatchEvent'
-)
+## 适用人群
+程序员、自媒体、高校学生、创投圈，这些人群是经常会看最新的科技进展的。 等到项目人尽皆知烂大街，就太晚了。这些人群可以从本工具中受益，主打一个信息差。
 
-SELECT 
-  repo_name,
-  COUNT(*) AS star_count
-FROM 
-  watch_data
-GROUP BY 
-  repo_name
-ORDER BY 
-  star_count DESC;
-```
-就能把所有 Github 仓库，按照最近两天获得的 stars 数量排序了。可以保证不会漏掉任何一个仓库（10w+数据）。
-![image](https://github.com/user-attachments/assets/7ef87f69-3336-46a7-b7e0-49fbdc485334)
-
-
-任何一个媒体人，如果你们的行当就是搬运每日最新的 Github AI 项目，把它们的 demo 做点简介拼在一起，就成为今天的稿件的话，你最好使用这个方法。人人都报道的项目那就烂大街了，只有这种方法可以找到公布时间不长，但 star 增长非常快的种子项目。
-
-详情放在 Github 仓库 https://github.com/chmod777john/github-hunter/
+## 路线
 希望未来能做成一款产品，集成 Github + ProductHunt + HackerNews ，通过数据分析找出有潜力的项目。在 AI 产品迅速发展的今天，做一个聚合站把最新的 IT 资讯带给大家，应该还是值得一做的。
 
-同时欢迎各位 AI 相关的媒体人、程序员进群讨论，多多提意见。目前其实是想做成量子位、机器之心那种资讯类的媒体，但是技术性更强，不再人工写稿，而是接入 Github + ProductHunt + HackerNews 数据源来发掘。
+同时，为了校验这个工具的威力，我会在每次用它找到好项目的时候，就立刻用区块链记录下来，作为一个预言。日后项目爆火，就代表预言成真，所有人都可以校验时间。
+
+## 答疑社群
+同时欢迎各位 AI 相关的媒体人、程序员、大学生、创业人士进群讨论，多多提意见
 
 ![image](https://github.com/user-attachments/assets/f256f544-1229-489c-a7e0-0b48709c74c6)
-
-
 
 --------------------------------
 
