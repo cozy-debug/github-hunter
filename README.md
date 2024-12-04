@@ -53,7 +53,8 @@ ORDER BY
 希望未来能做成一款产品，集成 Github + ProductHunt + HackerNews ，通过数据分析找出有潜力的项目。在 AI 产品迅速发展的今天，做一个聚合站把最新的 IT 资讯带给大家，应该还是值得一做的。
 
 同时欢迎各位 AI 相关的媒体人、程序员进群讨论，多多提意见。目前其实是想做成量子位、机器之心那种资讯类的媒体，但是技术性更强，不再人工写稿，而是接入 Github + ProductHunt + HackerNews 数据源来发掘。
-![image](https://github.com/user-attachments/assets/dcd50508-e36f-450c-877a-4d7947ee86c0)
+
+![image](https://github.com/user-attachments/assets/f256f544-1229-489c-a7e0-0b48709c74c6)
 
 
 
