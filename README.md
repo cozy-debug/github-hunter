@@ -29,7 +29,8 @@
 
 二维码过期的话，请添加微信号 drinking-soda
 
-![image](https://github.com/user-attachments/assets/f256f544-1229-489c-a7e0-0b48709c74c6)
+![image](https://github.com/user-attachments/assets/2f3ee764-304b-407e-80bf-f04d2d29cc8a)
+
 
 --------------------------------
 
