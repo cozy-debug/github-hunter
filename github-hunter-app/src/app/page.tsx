@@ -3,59 +3,34 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { useEffect, useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 
-interface Repo {
+interface ResultItem {
   repo_name: string
-  star_count: number
   created_at: string
+  star_count: number
   current_star_count: number
+  score: number
+  deepseek_analysis: string
+  readme?: string
 }
 
 export default function Home() {
-  const [repos, setRepos] = useState<Repo[]>([])
+  const [data, setData] = useState<ResultItem[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Mock data for styling
-    const mockRepos = [
-      {
-        repo_name: "vercel/next.js",
-        star_count: 423,
-        created_at: "2023-01-15T10:00:00Z",
-        current_star_count: 125000
-      },
-      {
-        repo_name: "facebook/react",
-        star_count: 389,
-        created_at: "2022-12-20T08:30:00Z", 
-        current_star_count: 218000
-      },
-      {
-        repo_name: "vuejs/core",
-        star_count: 256,
-        created_at: "2023-02-10T14:15:00Z",
-        current_star_count: 98000
-      },
-      {
-        repo_name: "tailwindlabs/tailwindcss",
-        star_count: 198,
-        created_at: "2023-01-05T09:45:00Z",
-        current_star_count: 75000
-      },
-      {
-        repo_name: "microsoft/TypeScript",
-        star_count: 175,
-        created_at: "2022-11-30T16:20:00Z",
-        current_star_count: 95000
-      },
-      {
-        repo_name: "nodejs/node",
-        star_count: 142,
-        created_at: "2023-02-15T11:10:00Z",
-        current_star_count: 100000
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/results')
+        const jsonData = await response.json()
+     
+        setData(jsonData)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      } finally {
+        setLoading(false)
       }
-    ]
-    setRepos(mockRepos)
-    setLoading(false)
+    }
+    fetchData()
   }, [])
 
   return (
@@ -71,57 +46,46 @@ export default function Home() {
         <p className="text-center">Loading repositories...</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {repos.map((repo, index) => (
-            <RepoCard key={index} repo={repo} />
+          {data.map((item, index) => (
+            <Card key={index} className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="text-lg">
+                  {item.repo_name || 'Repository'}
+                </CardTitle>
+                {item.created_at && (
+                  <CardDescription>
+                    Created {formatDistanceToNow(new Date(item.created_at))} ago
+                  </CardDescription>
+                )}
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between">
+                    <span className="font-medium">评分:</span>
+                    <span className="font-bold text-lg">
+                      {item.score}/10
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">近期Star数:</span>
+                    <span>{item.star_count}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">总Star数:</span>
+                    <span>{item.current_star_count}</span>
+                  </div>
+                  <div className="mt-4">
+                    <h3 className="font-medium mb-2">分析:</h3>
+                    <p className="text-sm text-gray-600">
+                      {item.deepseek_analysis}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       )}
     </div>
-  )
-}
-
-function RepoCard({ repo }: { repo: Repo }) {
-  const [owner, repoName] = repo.repo_name.includes('/') 
-    ? repo.repo_name.split('/') 
-    : ['unknown', repo.repo_name]
-  const avatarUrl = `https://github.com/${owner}.png?size=60`
-
-  return (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardHeader className="flex flex-row items-center gap-4">
-        <img 
-          src={avatarUrl} 
-          alt={`${owner} avatar`}
-          className="w-12 h-12 rounded-full"
-        />
-        <div>
-          <CardTitle className="text-lg">
-            <a 
-              href={`https://github.com/${repo.repo_name}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-600"
-            >
-              {repo.repo_name}
-            </a>
-          </CardTitle>
-          <CardDescription>
-            Created {formatDistanceToNow(new Date(repo.created_at))} ago
-          </CardDescription>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-2">
-          <div className="flex justify-between">
-            <span className="font-medium">24h Stars:</span>
-            <span className="text-green-600 font-bold">+{repo.star_count}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="font-medium">Total Stars:</span>
-            <span>{repo.current_star_count}</span>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
   )
 }
