@@ -1,0 +1,12 @@
+{
+  "name": "github-hunter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "devops": "docker build -t github-hunter . && docker tag github-hunter registry.cn-hongkong.aliyuncs.com/weijohn/github-hunter:latest && docker push registry.cn-hongkong.aliyuncs.com/weijohn/github-hunter:latest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
