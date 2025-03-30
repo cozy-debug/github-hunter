@@ -10,6 +10,7 @@ interface ResultItem {
   current_star_count: number
   score: number
   deepseek_analysis: string
+  summary: string
   readme?: string
 }
 
@@ -75,9 +76,9 @@ export default function Home() {
                     <span>{item.current_star_count}</span>
                   </div>
                   <div className="mt-4">
-                    <h3 className="font-medium mb-2">分析:</h3>
+                    <h3 className="font-medium mb-2">简介:</h3>
                     <p className="text-sm text-gray-600">
-                      {item.deepseek_analysis}
+                      {item.summary}
                     </p>
                   </div>
                 </div>

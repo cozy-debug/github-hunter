@@ -97,8 +97,28 @@ def analyze_with_deepseek(repo_data):
         stream=False
     )
     res = response.choices[0].message.content
-    # print(res)
     return res
+
+def summarize_with_deepseek(repo_data):
+    """Get concise plain text summary from DeepSeek in Chinese"""
+    prompt = f"""
+    请用中文为这个GitHub仓库提供一个简短的纯文本简介(不要使用markdown格式):
+    名称: {repo_data['repo_name']}
+    近期获得的star数: {repo_data['star_count']}
+    README预览: {repo_data['readme'][:200] if repo_data['readme'] else "无README内容"}
+    
+    请用1-2句话简洁描述该仓库的主要功能和特点，不要包含评分或分析。
+    """
+    
+    response = client.chat.completions.create(
+        model="qwen-turbo-latest",
+        messages=[
+            {"role": "system", "content": "你是一个简洁的GitHub仓库简介生成器"},
+            {"role": "user", "content": prompt},
+        ],
+        stream=False
+    )
+    return response.choices[0].message.content.strip()
 
 def process_repo(row):
     """Process a single repository"""
@@ -114,9 +134,10 @@ def process_repo(row):
         "readme": readme_content
     }
     
-    # Get score and analysis using complete repo_data
+    # Get score, analysis and summary using complete repo_data
     repo_data["score"] = get_score_from_deepseek(repo_data)
     repo_data["deepseek_analysis"] = analyze_with_deepseek(repo_data)
+    repo_data["summary"] = summarize_with_deepseek(repo_data)
     
     return repo_data
 
