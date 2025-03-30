@@ -34,7 +34,7 @@ def get_readme_content(repo_name):
             data = response.json()
             if data.get("content"):
                 import base64
-                print('readme')
+                
                 return base64.b64decode(data["content"]).decode('utf-8', errors='replace')
                 
             return ""
@@ -142,17 +142,17 @@ def process_repo(row):
     return repo_data
 
 # Process top 10 newest repos in parallel
-top_repos = df.sort_values('created_at', ascending=False).head(10)
+top_repos = df.head(100)
 results = []
 
-with ThreadPoolExecutor(max_workers=5) as executor:
+with ThreadPoolExecutor(max_workers=20) as executor:
     futures = [executor.submit(process_repo, row) for _, row in top_repos.iterrows()]
     for future in tqdm(as_completed(futures), total=len(futures), desc="Processing repos"):
         results.append(future.result())
 
 # Sort by score descending
 results.sort(key=lambda x: x['score'], reverse=True)
-print(results)
+
 # Save to files
 with open('analyzed_results.json', 'w') as f:
     json.dump(results, f, indent=2, default=str)
